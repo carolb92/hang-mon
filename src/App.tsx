@@ -58,6 +58,8 @@ function App() {
       .then((data) => {
         setFilteredPokemon(createNamesArr(data)); // initially set to all pokemon
         console.log(`pokeNamesArr: ${createNamesArr(data)}`);
+        // TODO: remove "type-null" and other weird ones from the array
+        // console.log(filteredPokemon.includes("type-null"));
       })
       .catch((error) => {
         console.log("Error fetching pokemon data:", error);
@@ -67,7 +69,7 @@ function App() {
 
   return (
     <div className="bg-blueSky flex min-h-full min-w-full flex-col items-center bg-cover bg-center">
-      <div className="mt-8 w-[90%] md:w-[60%] lg:w-[45%]">
+      <div className="mt-8 w-[90%] md:w-[60%] lg:w-[40%]">
         <img src={logo} alt="Hang 'Mon Logo" className="h-auto w-full" />
       </div>
       <Filters
