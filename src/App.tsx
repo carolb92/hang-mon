@@ -68,7 +68,8 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-blueSky flex min-h-full min-w-full flex-col items-center bg-cover bg-center">
+    // TODO: different background for mobile?
+    <div className="bg-blueSky flex min-h-full min-w-full flex-col items-center bg-cover bg-center bg-no-repeat">
       <div className="mt-8 w-[90%] md:w-[60%] lg:w-[40%]">
         <img src={logo} alt="Hang 'Mon Logo" className="h-auto w-full" />
       </div>
