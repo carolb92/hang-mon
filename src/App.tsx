@@ -1,7 +1,7 @@
 // import "./index.css";
 import PokeImage from "./components/PokeImage";
 import logo from "./assets/hang-mon-logo.png";
-import Filters from "@/components/Filters";
+import Filters from "@/components/Filters/Filters";
 import GuessThisMon from "./components/GuessThisMon";
 import pokeball3d from "./assets/pokeball-3d-removebg.png";
 import { useState, useEffect } from "react";

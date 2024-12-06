@@ -1,4 +1,4 @@
-import FilterSelect from "@/components/FilterSelect";
+import FilterSelect from "@/components/Filters/FilterSelect";
 
 type FiltersProps = {
   setRegionFilter: (value: string) => void;
