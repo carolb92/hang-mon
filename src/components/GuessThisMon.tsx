@@ -1,8 +1,10 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { PokemonObj } from "@/App";
+import StyledButton from "./Button/StyledButton";
+import GameOverContent from "./GameOverContent";
 
 type GuessThisMonProps = {
   regionFilter: string;
@@ -65,12 +67,12 @@ export default function GuessThisMon({
   useEffect(() => {
     console.log("guessesRemaining:", guessesRemaining);
     if (guessesRemaining === 0) {
-      setGuessedLetters([]);
-      generateRandomMonAndPlaceholder();
-      setGuessedLetter("");
+      // setGuessedLetters([]);
+      // generateRandomMonAndPlaceholder();
+      // setGuessedLetter("");
       setGameOver(true);
       console.log("gameOver:", gameOver);
-      setGuessesRemaining(7);
+      // setGuessesRemaining(7);
     }
   }, [guessesRemaining, gameOver, generateRandomMonAndPlaceholder]);
 
@@ -100,40 +102,33 @@ export default function GuessThisMon({
         }
       });
     } else {
-      // if (guessesRemaining === 0) {
-      //   setGuessesRemaining(7);
-      //   setGuessedLetters([]);
-      //   generateRandomMonAndPlaceholder();
-      //   setGuessedLetter("");
-      //   return;
-      // }
       setGuessesRemaining((prevGuesses) => prevGuesses - 1);
-      // setGuessesRemaining((prevGuesses) => {
-      //   const newGuesses = prevGuesses - 1;
-      //   if (newGuesses === 0) {
-      //     // TODO: move this logic to the play again button
-      //     // setGuessedLetters([]);
-      //     // generateRandomMonAndPlaceholder();
-      //     // setGuessesRemaining(7);
-      //     // setGuessedLetter("");
-      //     return 7;
-      //   }
-      //   return newGuesses;
-      // });
-      // console.log("guessesRemaining:", guessesRemaining);
       setGuessedLetters((prevLetters) => [...prevLetters, guessedLetter]);
     }
     setGuessedLetter("");
   }
 
-  //TODO: refactor to individual components, use a switch/case statement?
+  const buttonDisabled =
+    guessesRemaining === 0 ||
+    guessedLetters.includes(guessedLetter) ||
+    !/[a-zA-Z]/.test(guessedLetter) ||
+    gameWon ||
+    guessedLetter.length > 1 ||
+    correctGuessesArray.current.includes(guessedLetter);
+
+  //TODO: refactor to individual components
   let content;
 
   if (gameOver) {
     content = (
-      <span>
-        No more guesses! The correct answer was {randomMon}. Try again?
-      </span>
+      <GameOverContent
+        randomMon={randomMon}
+        setGuessedLetters={setGuessedLetters}
+        generateRandomMonAndPlaceholder={generateRandomMonAndPlaceholder}
+        setGuessedLetter={setGuessedLetter}
+        setGuessesRemaining={setGuessesRemaining}
+        setGameOver={setGameOver}
+      />
     );
   } else if (gameWon) {
     content = <span>You win!</span>;
@@ -142,18 +137,21 @@ export default function GuessThisMon({
       <div className="flex w-full flex-col items-center justify-center gap-x-24">
         <div className="flex flex-col items-center justify-center gap-y-2">
           <div className="mt-6 flex flex-col gap-y-4">
-            <span>Guesses remaining: {guessesRemaining}</span>
-            <span className="flex gap-x-2">
-              {guessedLetters.map((letter) => {
-                return (
-                  <span key={letter} className="text-red-600">
-                    {letter}
-                  </span>
-                );
-              })}
-            </span>
+            <div className="flex flex-col items-center">
+              {/* // TODO: change this to an HP bar which decreases with each wrong guess */}
+              <span>Guesses remaining: {guessesRemaining}</span>
+              <span className="flex gap-x-2">
+                {guessedLetters.map((letter) => {
+                  return (
+                    <span key={letter} className="text-red-600">
+                      {letter}
+                    </span>
+                  );
+                })}
+              </span>
+              <span>{children}</span>
+            </div>
           </div>
-          <span>{children}</span>
           <div className="flex flex-col items-center gap-y-4">
             <span>{placeholder}</span>
             <span className="text-semibold text-xl">Guess a letter:</span>
@@ -165,32 +163,21 @@ export default function GuessThisMon({
                 className="w-12 border-2 border-blue-900"
                 ref={inputRef}
               />
-              {/* // TODO: disable if the input value has already been guessed correctly */}
-              <Button
+              {/* <Button
                 onClick={checkGuess}
-                className="text-bold mb-14 bg-yellow-100 py-5 text-lg uppercase text-blue-950"
-                disabled={
-                  guessesRemaining === 0 ||
-                  guessedLetters.includes(guessedLetter) ||
-                  !/[a-zA-Z]/.test(guessedLetter) ||
-                  gameWon ||
-                  guessedLetter.length > 1 ||
-                  correctGuessesArray.current.includes(guessedLetter)
-                }
+                className="text-bold mb-14 bg-yellow-400 py-5 text-lg uppercase text-blue-950"
+                disabled={buttonDisabled}
               >
                 Guess
-              </Button>
+              </Button> */}
+              <StyledButton
+                btnText="Guess"
+                handleClick={checkGuess}
+                disabled={buttonDisabled}
+              />
             </form>
           </div>
         </div>
-        {/* <div className="flex flex-col gap-y-4">
-          <span>Guesses remaining: {guessesRemaining}</span>
-          <span className="flex gap-x-2">
-            {guessedLetters.map((letter) => {
-              return <span key={letter} className="text-red-600">{letter}</span>;
-            })}
-          </span>
-        </div> */}
       </div>
     );
   }
