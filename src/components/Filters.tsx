@@ -44,20 +44,22 @@ export default function Filters({
     "Stellar",
   ];
   return (
-    <div className="flex w-[360px] items-center justify-between">
+    <div className="flex w-[360px] flex-col items-center justify-between gap-y-2 md:flex-row">
       <span className="text-xl font-semibold text-blue-950">Filter by:</span>
-      <FilterSelect
-        optionsArr={regionsArr}
-        menuTitle="Region"
-        setRegionFilter={setRegionFilter}
-        setTypeFilter={setTypeFilter}
-      />
-      <FilterSelect
-        optionsArr={typesArr}
-        menuTitle="Type"
-        setRegionFilter={setRegionFilter}
-        setTypeFilter={setTypeFilter}
-      />
+      <div className="flex w-full flex-row justify-center gap-x-4 md:w-auto">
+        <FilterSelect
+          optionsArr={regionsArr}
+          menuTitle="Region"
+          setRegionFilter={setRegionFilter}
+          setTypeFilter={setTypeFilter}
+        />
+        <FilterSelect
+          optionsArr={typesArr}
+          menuTitle="Type"
+          setRegionFilter={setRegionFilter}
+          setTypeFilter={setTypeFilter}
+        />
+      </div>
     </div>
   );
 }

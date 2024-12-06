@@ -6,15 +6,16 @@ import GuessThisMon from "./components/GuessThisMon";
 import pokeball3d from "./assets/pokeball-3d-removebg.png";
 import { useState, useEffect } from "react";
 
+export type PokemonObj = {
+  name: string;
+  url: string;
+};
+
 function App() {
-  type PokemonObj = {
-    name: string;
-    url: string;
-  };
   const [src, setSrc] = useState(pokeball3d);
   const [regionFilter, setRegionFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
-  const [filteredPokemon, setFilteredPokemon] = useState<string[]>([]);
+  const [filteredPokemon, setFilteredPokemon] = useState<PokemonObj[]>([]);
 
   // fetch and cache all pokemon
   useEffect(() => {
@@ -45,21 +46,21 @@ function App() {
       return data.results;
     }
 
-    const pokeNamesArr: string[] = [];
+    // const pokeNamesArr: string[] = [];
 
-    function createNamesArr(pokemonData: PokemonObj[]) {
-      for (const pokemon of pokemonData) {
-        pokeNamesArr.push(pokemon.name);
-      }
-      return pokeNamesArr;
-    }
+    // function createNamesArr(pokemonData: PokemonObj[]) {
+    //   for (const pokemon of pokemonData) {
+    //     pokeNamesArr.push(pokemon.name);
+    //   }
+    //   return pokeNamesArr;
+    // }
 
     fetchAndCachePokemon()
       .then((data) => {
-        setFilteredPokemon(createNamesArr(data)); // initially set to all pokemon
-        console.log(`pokeNamesArr: ${createNamesArr(data)}`);
+        setFilteredPokemon(data); // initially set to all pokemon
+        // console.log(`pokeNamesArr: ${createNamesArr(data)}`);
+        console.log("filteredPokemon:", filteredPokemon);
         // TODO: remove "type-null" and other weird ones from the array
-        // console.log(filteredPokemon.includes("type-null"));
       })
       .catch((error) => {
         console.log("Error fetching pokemon data:", error);
@@ -69,21 +70,25 @@ function App() {
 
   return (
     // TODO: different background for mobile?
-    <div className="bg-blueSky flex min-h-full min-w-full flex-col items-center bg-cover bg-center bg-no-repeat">
-      <div className="mt-8 w-[90%] md:w-[60%] lg:w-[40%]">
+    <div className="bg-blueSky flex h-screen min-w-full flex-col items-center bg-cover bg-top md:justify-center md:gap-y-20 lg:gap-y-10 lg:bg-center">
+      {/* // TODO: refactor to a logo component  */}
+      <div className="mt-8 w-[90%] md:w-[60%] lg:w-[30%]">
         <img src={logo} alt="Hang 'Mon Logo" className="h-auto w-full" />
       </div>
-      <Filters
-        setRegionFilter={setRegionFilter}
-        setTypeFilter={setTypeFilter}
-      />
-      <PokeImage src={src} />
-      <GuessThisMon
-        regionFilter={regionFilter}
-        typeFilter={typeFilter}
-        setSrc={setSrc}
-        filteredPokemon={filteredPokemon}
-      />
+      <div className="flex flex-col">
+        <Filters
+          setRegionFilter={setRegionFilter}
+          setTypeFilter={setTypeFilter}
+        />
+        <GuessThisMon
+          regionFilter={regionFilter}
+          typeFilter={typeFilter}
+          setSrc={setSrc}
+          filteredPokemon={filteredPokemon}
+        >
+          <PokeImage src={src} />
+        </GuessThisMon>
+      </div>
     </div>
   );
 }
