@@ -1,10 +1,10 @@
 // import "./index.css";
-import PokeImage from "./components/PokeImage";
-import logo from "./assets/hang-mon-logo.png";
+// import PokeImage from "./components/PokeImage";
 import Filters from "@/components/Filters/Filters";
 import GuessThisMon from "./components/GuessThisMon";
-import pokeball3d from "./assets/pokeball-3d-removebg.png";
+// import pokeball3d from "./assets/pokeball-3d-removebg.png";
 import { useState, useEffect } from "react";
+import Logo from "./components/Logo";
 
 export type PokemonObj = {
   name: string;
@@ -12,7 +12,7 @@ export type PokemonObj = {
 };
 
 function App() {
-  const [src, setSrc] = useState(pokeball3d);
+  // const [src, setSrc] = useState(pokeball3d);
   const [regionFilter, setRegionFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
   const [filteredPokemon, setFilteredPokemon] = useState<PokemonObj[]>([]);
@@ -60,7 +60,7 @@ function App() {
         setFilteredPokemon(data); // initially set to all pokemon
         // console.log(`pokeNamesArr: ${createNamesArr(data)}`);
         console.log("filteredPokemon:", filteredPokemon);
-        // TODO: remove "type-null" and other weird ones from the array
+        // TODO: remove "type-null" and other weird ones from the array (dundunsparce-two-segment)
       })
       .catch((error) => {
         console.log("Error fetching pokemon data:", error);
@@ -71,10 +71,7 @@ function App() {
   return (
     // TODO: different background for mobile?
     <div className="bg-blueSky flex h-screen min-w-full flex-col items-center bg-cover bg-top md:justify-center md:gap-y-20 lg:gap-y-10 lg:bg-center">
-      {/* // TODO: refactor to a logo component  */}
-      <div className="mt-8 w-[90%] md:w-[60%] lg:w-[30%]">
-        <img src={logo} alt="Hang 'Mon Logo" className="h-auto w-full" />
-      </div>
+      <Logo />
       <div className="flex flex-col">
         <Filters
           setRegionFilter={setRegionFilter}
@@ -83,10 +80,10 @@ function App() {
         <GuessThisMon
           regionFilter={regionFilter}
           typeFilter={typeFilter}
-          setSrc={setSrc}
+          // setSrc={setSrc}
           filteredPokemon={filteredPokemon}
         >
-          <PokeImage src={src} />
+          {/* <PokeImage src={src} /> */}
         </GuessThisMon>
       </div>
     </div>

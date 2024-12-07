@@ -1,37 +1,21 @@
-import StyledButton from "./Button/StyledButton";
+import PlayAgainButton from "./Button/PlayAgainButton";
 
 type GameOverContentProps = {
   randomMon: string;
-  setGuessedLetters: (value: string[]) => void;
-  generateRandomMonAndPlaceholder: () => void;
-  setGuessedLetter: (value: string) => void;
-  setGuessesRemaining: (value: number) => void;
-  setGameOver: (value: boolean) => void;
+  playAgain: () => void;
 };
 
 export default function GameOverContent({
   randomMon,
-  setGuessedLetters,
-  generateRandomMonAndPlaceholder,
-  setGuessedLetter,
-  setGuessesRemaining,
-  setGameOver,
+  playAgain,
 }: GameOverContentProps) {
-  function handleClick() {
-    setGuessedLetters([]);
-    generateRandomMonAndPlaceholder();
-    setGuessedLetter("");
-    setGuessesRemaining(7);
-    setGameOver(false);
-  }
-
   return (
     <div className="mt-8 flex flex-col items-center gap-y-4">
       <span className="text-semibold text-xl">
-        No more guesses! The Pokemon was {randomMon}
+        No more guesses! The Pokémon was {randomMon}
       </span>
       <span className="w-1/2">
-        <StyledButton btnText="Play Again" handleClick={handleClick} />
+        <PlayAgainButton handleClick={playAgain} />
       </span>
     </div>
   );
