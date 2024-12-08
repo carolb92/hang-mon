@@ -2,38 +2,42 @@ import PokeImage from "./PokeImage";
 import { Input } from "@/components/ui/input";
 import StyledButton from "./Button/StyledButton";
 import PlayAgainButton from "./Button/PlayAgainButton";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import pokeball3d from "@/assets/pokeball-3d-removebg.png";
+import { useGuessContext } from "@/context/useGuessContext";
 
 type GamePlayContentProps = {
   randomMon: string;
-  setGuessesRemaining: React.Dispatch<React.SetStateAction<number>>;
   placeholder: JSX.Element[];
   setPlaceholder: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
-  guessesRemaining: number;
-  guessedLetter: string;
-  setGuessedLetter: React.Dispatch<React.SetStateAction<string>>;
-  guessedLetters: string[];
-  setGuessedLetters: React.Dispatch<React.SetStateAction<string[]>>;
   playAgain: () => void;
+  randomMonUrl: string;
+  src: string;
+  setSrc: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function GamePlayContent({
   randomMon,
-  setGuessesRemaining,
   placeholder,
   setPlaceholder,
-  guessesRemaining,
-  guessedLetter,
-  setGuessedLetter,
-  guessedLetters,
-  setGuessedLetters,
   playAgain,
+  randomMonUrl,
+  src,
+  setSrc,
 }: GamePlayContentProps) {
-  const [src, setSrc] = useState(pokeball3d);
+  // const [src, setSrc] = useState(pokeball3d);
   const correctGuessesArray = useRef<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [gameWon, setGameWon] = useState<boolean>(false);
+
+  const {
+    guessedLetter,
+    setGuessedLetter,
+    guessesRemaining,
+    setGuessesRemaining,
+    guessedLetters,
+    setGuessedLetters,
+  } = useGuessContext();
 
   function checkGuess() {
     // focus the input after the guess button is clicked
@@ -44,7 +48,6 @@ export default function GamePlayContent({
           correctGuessesArray.current[index] = guessedLetter;
           console.log(correctGuessesArray.current.join(""));
           // check if the user has guessed all letters correctly
-          // TODO: display a sprite of the pokemon with setsrc
           if (
             correctGuessesArray.current.join("") === randomMon.replace(/-/g, "")
           ) {
@@ -75,38 +78,68 @@ export default function GamePlayContent({
     guessedLetter.length > 1 ||
     correctGuessesArray.current.includes(guessedLetter);
 
+  // if the game is won, fetch the pokemon sprite
+  useEffect(() => {
+    async function fetchSprite() {
+      const response = await fetch(randomMonUrl);
+      if (!response.ok) {
+        throw new Error("Failed to fetch pokemon data");
+      }
+      const data = await response.json();
+      return data.sprites.front_default;
+    }
+
+    if (gameWon) {
+      fetchSprite()
+        .then((data) => {
+          setSrc(data);
+        })
+        .catch((error) => {
+          console.log("error fetching sprite:", error);
+          setSrc(pokeball3d);
+        });
+    }
+  }, [gameWon]);
+
   return (
     <div className="flex w-full flex-col items-center justify-center gap-x-24">
       <div className="flex flex-col items-center justify-center gap-y-2">
         <div className="mt-6 flex flex-col gap-y-4">
           <div className="flex flex-col items-center">
             {/* // TODO: change this to an HP bar which decreases with each wrong guess */}
-            {!gameWon && <span>Guesses remaining: {guessesRemaining}</span>}
-            <span className="flex gap-x-2">
-              {guessedLetters.map((letter) => {
-                return (
-                  <span key={letter} className="text-red-600">
-                    {letter}
-                  </span>
-                );
-              })}
-            </span>
+            {!gameWon && (
+              <>
+                {/* //TODO: refactor to a separate component? */}
+                <span>Guesses remaining: {guessesRemaining}</span>
+                <span className="flex gap-x-2">
+                  {guessedLetters.map((letter) => {
+                    return (
+                      <span key={letter} className="text-red-600">
+                        {letter}
+                      </span>
+                    );
+                  })}
+                </span>
+              </>
+            )}
             {/* <span>{children}</span> */}
-            {/* // TODO: if gameWon setSrc to pokemon sprite */}
             {gameWon && <span>Congratulations! You caught {randomMon}!</span>}
             <PokeImage src={src} />
           </div>
         </div>
+        {/* //TODO: refactor to a separate component? */}
         <div className="flex flex-col items-center gap-y-4">
           <span>{placeholder}</span>
           <span className="text-semibold text-xl">Guess a letter:</span>
           <form action="" className="flex flex-col items-center gap-y-4">
+            {/* //TODO: add error messages for invalid input */}
             <Input
               type="text"
               value={guessedLetter}
               onChange={(e) => setGuessedLetter(e.target.value.toUpperCase())}
               className="w-12 border-2 border-blue-900"
               ref={inputRef}
+              disabled={gameWon}
             />
             {gameWon ? (
               <PlayAgainButton

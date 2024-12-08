@@ -12,7 +12,7 @@ export default function StyledButton({
 }: StyledButtonProps) {
   return (
     <Button
-      className="text-bold mb-14 bg-yellow-400 py-5 text-lg uppercase text-blue-950"
+      className="text-bold mb-14 bg-yellow-400 py-5 text-lg uppercase text-blue-950 hover:text-yellow-500"
       onClick={handleClick}
       disabled={disabled ?? false}
     >

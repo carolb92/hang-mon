@@ -1,10 +1,9 @@
 // import "./index.css";
-// import PokeImage from "./components/PokeImage";
 import Filters from "@/components/Filters/Filters";
 import GuessThisMon from "./components/GuessThisMon";
-// import pokeball3d from "./assets/pokeball-3d-removebg.png";
 import { useState, useEffect } from "react";
 import Logo from "./components/Logo";
+import { GuessContextProvider } from "./context/GuessContext";
 
 export type PokemonObj = {
   name: string;
@@ -12,7 +11,6 @@ export type PokemonObj = {
 };
 
 function App() {
-  // const [src, setSrc] = useState(pokeball3d);
   const [regionFilter, setRegionFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
   const [filteredPokemon, setFilteredPokemon] = useState<PokemonObj[]>([]);
@@ -60,7 +58,7 @@ function App() {
         setFilteredPokemon(data); // initially set to all pokemon
         // console.log(`pokeNamesArr: ${createNamesArr(data)}`);
         console.log("filteredPokemon:", filteredPokemon);
-        // TODO: remove "type-null" and other weird ones from the array (dundunsparce-two-segment)
+        // TODO: remove "type-null" and other weird ones from the array (dundunsparce-two-segment, squawkabilly-green-plumage)
       })
       .catch((error) => {
         console.log("Error fetching pokemon data:", error);
@@ -77,14 +75,13 @@ function App() {
           setRegionFilter={setRegionFilter}
           setTypeFilter={setTypeFilter}
         />
-        <GuessThisMon
-          regionFilter={regionFilter}
-          typeFilter={typeFilter}
-          // setSrc={setSrc}
-          filteredPokemon={filteredPokemon}
-        >
-          {/* <PokeImage src={src} /> */}
-        </GuessThisMon>
+        <GuessContextProvider>
+          <GuessThisMon
+            regionFilter={regionFilter}
+            typeFilter={typeFilter}
+            filteredPokemon={filteredPokemon}
+          />
+        </GuessContextProvider>
       </div>
     </div>
   );

@@ -3,6 +3,8 @@ import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import { PokemonObj } from "@/App";
 import GameOverContent from "./GameOverContent";
 import GamePlayContent from "./GamePlayContent";
+import { useGuessContext } from "@/context/useGuessContext";
+import pokeball3d from "@/assets/pokeball-3d-removebg.png";
 
 type GuessThisMonProps = {
   regionFilter: string;
@@ -17,16 +19,23 @@ export default function GuessThisMon({
   filteredPokemon,
 }: GuessThisMonProps) {
   const [randomMon, setRandomMon] = useState<string>("");
+  const [randomMonUrl, setRandomMonUrl] = useState<string>("");
   const [placeholder, setPlaceholder] = useState<JSX.Element[]>([]);
-  const [guessedLetter, setGuessedLetter] = useState<string>("");
-  const [guessesRemaining, setGuessesRemaining] = useState<number>(7);
-  const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [gameOver, setGameOver] = useState<boolean>(false);
+  const [src, setSrc] = useState(pokeball3d);
+
+  const {
+    guessesRemaining,
+    setGuessesRemaining,
+    setGuessedLetter,
+    setGuessedLetters,
+  } = useGuessContext();
 
   const generateRandomMonAndPlaceholder = useCallback(() => {
     if (filteredPokemon.length === 0) return;
     const randomIndex = Math.floor(Math.random() * filteredPokemon.length);
     const selectedMon = filteredPokemon[randomIndex].name.toUpperCase();
+    // console.log(filteredPokemon[randomIndex].url);
 
     const placeholderArr: JSX.Element[] = selectedMon
       .split("")
@@ -43,6 +52,8 @@ export default function GuessThisMon({
     setRandomMon(selectedMon);
     setPlaceholder(placeholderArr);
     console.log("selectedMon:", selectedMon);
+    setRandomMonUrl(filteredPokemon[randomIndex].url);
+    console.log("randomMonUrl:", randomMonUrl);
   }, [filteredPokemon]);
 
   useEffect(() => {
@@ -70,30 +81,21 @@ export default function GuessThisMon({
     setGuessedLetter("");
     setGuessesRemaining(7);
     setGameOver(false);
+    // setRandomMonUrl("");
+    setSrc(pokeball3d);
   }
 
-  let content;
-
-  if (gameOver) {
-    content = (
-      <GameOverContent randomMon={randomMon} playAgain={handlePlayAgainClick} />
-    );
-  } else {
-    content = (
-      <GamePlayContent
-        randomMon={randomMon}
-        setGuessesRemaining={setGuessesRemaining}
-        placeholder={placeholder}
-        setPlaceholder={setPlaceholder}
-        guessesRemaining={guessesRemaining}
-        guessedLetter={guessedLetter}
-        setGuessedLetter={setGuessedLetter}
-        guessedLetters={guessedLetters}
-        setGuessedLetters={setGuessedLetters}
-        playAgain={handlePlayAgainClick}
-      />
-    );
-  }
-
-  return content;
+  return gameOver ? (
+    <GameOverContent randomMon={randomMon} playAgain={handlePlayAgainClick} />
+  ) : (
+    <GamePlayContent
+      randomMon={randomMon}
+      placeholder={placeholder}
+      setPlaceholder={setPlaceholder}
+      playAgain={handlePlayAgainClick}
+      randomMonUrl={randomMonUrl}
+      src={src}
+      setSrc={setSrc}
+    />
+  );
 }
