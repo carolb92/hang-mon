@@ -78,6 +78,23 @@ export default function GamePlayContent({
     guessedLetter.length > 1 ||
     correctGuessesArray.current.includes(guessedLetter);
 
+  let errorMessage = "";
+
+  if (guessedLetter.length > 0) {
+    if (
+      guessedLetters.includes(guessedLetter) ||
+      correctGuessesArray.current.includes(guessedLetter)
+    ) {
+      errorMessage = "You already guessed that letter!";
+    } else if (!/[a-zA-Z]/.test(guessedLetter)) {
+      errorMessage = "Enter an alphabetic character.";
+    } else if (guessedLetter.length > 1) {
+      errorMessage = "Enter only one letter at a time.";
+    } else {
+      errorMessage = "";
+    }
+  }
+
   // if the game is won, fetch the pokemon sprite
   useEffect(() => {
     async function fetchSprite() {
@@ -141,6 +158,9 @@ export default function GamePlayContent({
               ref={inputRef}
               disabled={gameWon}
             />
+            {errorMessage && (
+              <span className="text-red-600">{errorMessage}</span>
+            )}
             {gameWon ? (
               <PlayAgainButton
                 handleClick={playAgain}
