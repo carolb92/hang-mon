@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+// import StyledButton from "../Button/StyledButton";
 
 type FilterProps = {
   optionsArr: string[];
@@ -52,6 +53,7 @@ export default function FilterSelect({
           })}
         </SelectContent>
       </Select>
+      {/* <StyledButton btnText="GO!" ></StyledButton> */}
     </div>
   );
 }

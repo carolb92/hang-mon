@@ -1,0 +1,31 @@
+export type RegionString =
+  | "kanto"
+  | "johto"
+  | "hoenn"
+  | "sinnoh"
+  | "unova"
+  | "kalos"
+  | "alola"
+  | "galar"
+  | "paldea";
+
+export type TypeString =
+  | "normal"
+  | "fighting"
+  | "flying"
+  | "poison"
+  | "ground"
+  | "rock"
+  | "bug"
+  | "ghost"
+  | "steel"
+  | "fire"
+  | "water"
+  | "grass"
+  | "electric"
+  | "psychic"
+  | "ice"
+  | "dragon"
+  | "dark"
+  | "fairy"
+  | "stellar";

@@ -7,9 +7,6 @@ type FiltersProps = {
   // typeFilter: { current: string };
 };
 
-//TODO: update region filters based on API pokedex endpoints
-// in App component, fetch and transform region data
-// ex: if filter is johto, concatenate "original-johto" and "updated-johto" data
 export default function Filters({
   setRegionFilter,
   setTypeFilter,
@@ -25,8 +22,8 @@ export default function Filters({
     "Unova",
     "Kalos",
     "Alola",
-    // "Galar",
-    // "Paldea",
+    "Galar",
+    "Paldea",
   ];
   const typesArr = [
     "All",
