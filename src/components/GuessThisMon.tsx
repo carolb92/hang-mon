@@ -9,6 +9,8 @@ import pokeball3d from "@/assets/pokeball-3d-removebg.png";
 type GuessThisMonProps = {
   regionFilter: string;
   typeFilter: string;
+  // regionFilter: { current: string };
+  // typeFilter: { current: string };
   filteredPokemon: PokemonObj[];
   children?: React.ReactNode;
 };
@@ -32,12 +34,30 @@ export default function GuessThisMon({
   } = useGuessContext();
 
   const generateRandomMonAndPlaceholder = useCallback(() => {
+    //! the shape of filteredPokemon is inconsistent
+    console.log(filteredPokemon[0]);
     if (filteredPokemon.length === 0) return;
     const randomIndex = Math.floor(Math.random() * filteredPokemon.length);
-    const selectedMon = filteredPokemon[randomIndex].name.toUpperCase();
+    console.log(filteredPokemon[randomIndex]);
+    let selectedMon;
+    if (regionFilter === "all" && typeFilter === "all") {
+      selectedMon = filteredPokemon[randomIndex].name.toUpperCase();
+      setRandomMonUrl(filteredPokemon[randomIndex].url);
+    } else if (regionFilter === "all" && typeFilter !== "all") {
+      console.log("selectedMon:", filteredPokemon[randomIndex]?.name);
+      selectedMon = filteredPokemon[randomIndex]?.name.toUpperCase();
+      console.log(filteredPokemon[randomIndex]?.url);
+      setRandomMonUrl(filteredPokemon[randomIndex]?.url);
+    } else if (regionFilter !== "all" && typeFilter === "all") {
+      selectedMon =
+        filteredPokemon[randomIndex]?.pokemon_species?.name.toUpperCase();
+      setRandomMonUrl(filteredPokemon[randomIndex]!.pokemon_species!.url);
+    }
     // console.log(filteredPokemon[randomIndex].url);
 
-    const placeholderArr: JSX.Element[] = selectedMon
+    console.log("selectedMon:", selectedMon);
+
+    const placeholderArr: JSX.Element[] = selectedMon!
       .split("")
       .map((char, index) => {
         if (char === " ") {
@@ -49,12 +69,12 @@ export default function GuessThisMon({
         }
       });
 
-    setRandomMon(selectedMon);
+    setRandomMon(selectedMon!);
     setPlaceholder(placeholderArr);
     console.log("selectedMon:", selectedMon);
-    setRandomMonUrl(filteredPokemon[randomIndex].url);
-    console.log("randomMonUrl:", randomMonUrl);
-  }, [filteredPokemon]);
+    // setRandomMonUrl(filteredPokemon[randomIndex].url);
+    // console.log("randomMonUrl:", randomMonUrl);
+  }, [filteredPokemon, regionFilter, typeFilter]);
 
   useEffect(() => {
     console.log("regionFilter:", regionFilter);

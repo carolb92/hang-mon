@@ -5,6 +5,7 @@ import PlayAgainButton from "./Button/PlayAgainButton";
 import { useRef, useState, useEffect } from "react";
 import pokeball3d from "@/assets/pokeball-3d-removebg.png";
 import { useGuessContext } from "@/context/useGuessContext";
+// import HPBar from "./HPBar";
 
 type GamePlayContentProps = {
   randomMon: string;
@@ -96,13 +97,26 @@ export default function GamePlayContent({
   }
 
   // if the game is won, fetch the pokemon sprite
+  // TODO: cache the sprite image
   useEffect(() => {
     async function fetchSprite() {
-      const response = await fetch(randomMonUrl);
+      let modifiedUrl;
+      if (randomMonUrl.includes("pokemon-species")) {
+        modifiedUrl = randomMonUrl.replace("pokemon-species", "pokemon");
+        console.log("modifiedUrl from GamePlay comp:", modifiedUrl);
+      }
+      let response;
+      if (modifiedUrl) {
+        response = await fetch(modifiedUrl);
+      } else {
+        console.log("randomMonUrl from GamePlay comp", randomMonUrl);
+        response = await fetch(randomMonUrl);
+      }
       if (!response.ok) {
         throw new Error("Failed to fetch pokemon data");
       }
       const data = await response.json();
+      // console.log("sprite:", data.sprites.front_default);
       return data.sprites.front_default;
     }
 
@@ -128,6 +142,7 @@ export default function GamePlayContent({
               <>
                 {/* //TODO: refactor to a separate component? */}
                 <span>Guesses remaining: {guessesRemaining}</span>
+                {/* <HPBar guessesRemaining={guessesRemaining} /> */}
                 <span className="flex gap-x-2">
                   {guessedLetters.map((letter) => {
                     return (

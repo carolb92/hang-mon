@@ -5,13 +5,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import { useState } from "react";
 
 type FilterProps = {
   optionsArr: string[];
   menuTitle: string;
   setRegionFilter: (value: string) => void;
   setTypeFilter: (value: string) => void;
+  // regionFilter: { current: string };
+  // typeFilter: { current: string };
 };
 
 export default function FilterSelect({
@@ -19,6 +20,8 @@ export default function FilterSelect({
   menuTitle,
   setRegionFilter,
   setTypeFilter,
+  // regionFilter,
+  // typeFilter,
 }: FilterProps) {
   // const [regionFilter, setRegionFilter] = useState("all");
   // const [typeFilter, setTypeFilter] = useState("all");
@@ -26,8 +29,10 @@ export default function FilterSelect({
   function handleSelect(value: string) {
     if (menuTitle === "Region") {
       setRegionFilter(value);
+      // regionFilter.current = value;
     } else {
       setTypeFilter(value);
+      // typeFilter.current = value;
     }
   }
 

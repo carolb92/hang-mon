@@ -1,13 +1,20 @@
 import FilterSelect from "@/components/Filters/FilterSelect";
 
 type FiltersProps = {
-  setRegionFilter: (value: string) => void;
-  setTypeFilter: (value: string) => void;
+  setRegionFilter: React.Dispatch<React.SetStateAction<string>>;
+  setTypeFilter: React.Dispatch<React.SetStateAction<string>>;
+  // regionFilter: { current: string };
+  // typeFilter: { current: string };
 };
 
+//TODO: update region filters based on API pokedex endpoints
+// in App component, fetch and transform region data
+// ex: if filter is johto, concatenate "original-johto" and "updated-johto" data
 export default function Filters({
   setRegionFilter,
   setTypeFilter,
+  // regionFilter,
+  // typeFilter,
 }: FiltersProps) {
   const regionsArr = [
     "All",
@@ -18,8 +25,8 @@ export default function Filters({
     "Unova",
     "Kalos",
     "Alola",
-    "Galar",
-    "Paldea",
+    // "Galar",
+    // "Paldea",
   ];
   const typesArr = [
     "All",
@@ -52,12 +59,16 @@ export default function Filters({
           menuTitle="Region"
           setRegionFilter={setRegionFilter}
           setTypeFilter={setTypeFilter}
+          // regionFilter={regionFilter}
+          // typeFilter={typeFilter}
         />
         <FilterSelect
           optionsArr={typesArr}
           menuTitle="Type"
           setRegionFilter={setRegionFilter}
           setTypeFilter={setTypeFilter}
+          // regionFilter={regionFilter}
+          // typeFilter={typeFilter}
         />
       </div>
     </div>
