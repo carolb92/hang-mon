@@ -7,7 +7,8 @@ export type RegionString =
   | "kalos"
   | "alola"
   | "galar"
-  | "paldea";
+  | "paldea"
+  | "all";
 
 export type TypeString =
   | "normal"
@@ -28,4 +29,5 @@ export type TypeString =
   | "dragon"
   | "dark"
   | "fairy"
-  | "stellar";
+  | "stellar"
+  | "all";

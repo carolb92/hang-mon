@@ -1,18 +1,13 @@
 import FilterSelect from "@/components/Filters/FilterSelect";
 
-type FiltersProps = {
-  setRegionFilter: React.Dispatch<React.SetStateAction<string>>;
-  setTypeFilter: React.Dispatch<React.SetStateAction<string>>;
-  // regionFilter: { current: string };
-  // typeFilter: { current: string };
-};
+// type FilterProps = {
+//   region: string;
+//   type: string;
+//   setRegion: React.Dispatch<React.SetStateAction<string>>;
+//   setType: React.Dispatch<React.SetStateAction<string>>;
+// };
 
-export default function Filters({
-  setRegionFilter,
-  setTypeFilter,
-  // regionFilter,
-  // typeFilter,
-}: FiltersProps) {
+export default function Filters() {
   const regionsArr = [
     "All",
     "Kanto",
@@ -54,16 +49,16 @@ export default function Filters({
         <FilterSelect
           optionsArr={regionsArr}
           menuTitle="Region"
-          setRegionFilter={setRegionFilter}
-          setTypeFilter={setTypeFilter}
+          // setRegionFilter={setRegionFilter}
+          // setTypeFilter={setTypeFilter}
           // regionFilter={regionFilter}
           // typeFilter={typeFilter}
         />
         <FilterSelect
           optionsArr={typesArr}
           menuTitle="Type"
-          setRegionFilter={setRegionFilter}
-          setTypeFilter={setTypeFilter}
+          // setRegionFilter={setRegionFilter}
+          // setTypeFilter={setTypeFilter}
           // regionFilter={regionFilter}
           // typeFilter={typeFilter}
         />

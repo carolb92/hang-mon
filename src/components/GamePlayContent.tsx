@@ -5,6 +5,7 @@ import PlayAgainButton from "./Button/PlayAgainButton";
 import { useRef, useState, useEffect } from "react";
 import pokeball3d from "@/assets/pokeball-3d-removebg.png";
 import { useGuessContext } from "@/context/useGuessContext";
+import { getPokemonSprite } from "@/lib/api/pokemon-api";
 // import HPBar from "./HPBar";
 
 type GamePlayContentProps = {
@@ -12,7 +13,7 @@ type GamePlayContentProps = {
   placeholder: JSX.Element[];
   setPlaceholder: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
   playAgain: () => void;
-  randomMonUrl: string;
+  // randomMonUrl: string;
   src: string;
   setSrc: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -22,7 +23,7 @@ export default function GamePlayContent({
   placeholder,
   setPlaceholder,
   playAgain,
-  randomMonUrl,
+  // randomMonUrl,
   src,
   setSrc,
 }: GamePlayContentProps) {
@@ -43,10 +44,10 @@ export default function GamePlayContent({
   function checkGuess() {
     // focus the input after the guess button is clicked
     inputRef.current?.focus();
-    if (randomMon.includes(guessedLetter)) {
+    if (randomMon.includes(guessedLetter.toLowerCase())) {
       randomMon.split("").map((char, index) => {
-        if (char === guessedLetter) {
-          correctGuessesArray.current[index] = guessedLetter;
+        if (char === guessedLetter.toLowerCase()) {
+          correctGuessesArray.current[index] = guessedLetter.toLowerCase();
           console.log(correctGuessesArray.current.join(""));
           // check if the user has guessed all letters correctly
           if (
@@ -97,40 +98,23 @@ export default function GamePlayContent({
   }
 
   // if the game is won, fetch the pokemon sprite
-  // TODO: cache the sprite image
   useEffect(() => {
-    async function fetchSprite() {
-      let modifiedUrl;
-      if (randomMonUrl.includes("pokemon-species")) {
-        modifiedUrl = randomMonUrl.replace("pokemon-species", "pokemon");
-        console.log("modifiedUrl from GamePlay comp:", modifiedUrl);
-      }
-      let response;
-      if (modifiedUrl) {
-        response = await fetch(modifiedUrl);
-      } else {
-        console.log("randomMonUrl from GamePlay comp", randomMonUrl);
-        response = await fetch(randomMonUrl);
-      }
-      if (!response.ok) {
-        throw new Error("Failed to fetch pokemon data");
-      }
-      const data = await response.json();
-      // console.log("sprite:", data.sprites.front_default);
-      return data.sprites.front_default;
-    }
-
     if (gameWon) {
-      fetchSprite()
-        .then((data) => {
-          setSrc(data);
-        })
-        .catch((error) => {
-          console.log("error fetching sprite:", error);
-          setSrc(pokeball3d);
-        });
+      async function fetchSprite() {
+        try {
+          const spriteUrl = await getPokemonSprite(randomMon);
+          if (spriteUrl) {
+            setSrc(spriteUrl);
+          } else {
+            console.error("Error fetching sprite URL");
+          }
+        } catch (error) {
+          console.error("Error fetching sprite:", error);
+        }
+      }
+      fetchSprite();
     }
-  }, [gameWon]);
+  }, [gameWon, randomMon, setSrc]);
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-x-24">

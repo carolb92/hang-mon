@@ -6,34 +6,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 // import StyledButton from "../Button/StyledButton";
+import { useGuessContext } from "@/context/useGuessContext";
+import { RegionString, TypeString } from "@/lib/api/types";
 
 type FilterProps = {
   optionsArr: string[];
   menuTitle: string;
-  setRegionFilter: (value: string) => void;
-  setTypeFilter: (value: string) => void;
-  // regionFilter: { current: string };
-  // typeFilter: { current: string };
 };
 
-export default function FilterSelect({
-  optionsArr,
-  menuTitle,
-  setRegionFilter,
-  setTypeFilter,
-  // regionFilter,
-  // typeFilter,
-}: FilterProps) {
-  // const [regionFilter, setRegionFilter] = useState("all");
-  // const [typeFilter, setTypeFilter] = useState("all");
+export default function FilterSelect({ optionsArr, menuTitle }: FilterProps) {
+  const { setRegion, setType } = useGuessContext(); //region, type
+  // const defaultValue = menuTitle === "Region" ? region : type;
 
   function handleSelect(value: string) {
     if (menuTitle === "Region") {
-      setRegionFilter(value);
-      // regionFilter.current = value;
+      setRegion(value.toLowerCase() as RegionString);
     } else {
-      setTypeFilter(value);
-      // typeFilter.current = value;
+      setType(value.toLowerCase() as TypeString);
     }
   }
 

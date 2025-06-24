@@ -1,16 +1,18 @@
 import React, { useState, createContext } from "react";
+import useURLState from "../hooks/useURLState";
+import { RegionString, TypeString } from "@/lib/api/types";
 
 type GuessContextType = {
-  randomMon: string;
-  setRandomMon: React.Dispatch<React.SetStateAction<string>>;
-  placeholder: JSX.Element[];
-  setPlaceholder: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
   guessedLetter: string;
   setGuessedLetter: React.Dispatch<React.SetStateAction<string>>;
   guessesRemaining: number;
   setGuessesRemaining: React.Dispatch<React.SetStateAction<number>>;
   guessedLetters: string[];
   setGuessedLetters: React.Dispatch<React.SetStateAction<string[]>>;
+  region: string;
+  setRegion: React.Dispatch<React.SetStateAction<string>>;
+  type: string;
+  setType: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const GuessContext = createContext<GuessContextType | null>(null);
@@ -20,23 +22,23 @@ export function GuessContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [randomMon, setRandomMon] = useState<string>("");
-  const [placeholder, setPlaceholder] = useState<JSX.Element[]>([]);
   const [guessedLetter, setGuessedLetter] = useState<string>("");
   const [guessesRemaining, setGuessesRemaining] = useState<number>(7);
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
+  const [region, setRegion] = useURLState("region", "all" as RegionString);
+  const [type, setType] = useURLState("type", "all" as TypeString);
 
   const value = {
-    randomMon,
-    setRandomMon,
-    placeholder,
-    setPlaceholder,
     guessedLetter,
     setGuessedLetter,
     guessesRemaining,
     setGuessesRemaining,
     guessedLetters,
     setGuessedLetters,
+    region,
+    setRegion,
+    type,
+    setType,
   };
 
   return (

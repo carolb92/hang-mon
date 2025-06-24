@@ -96,3 +96,17 @@ export async function findRegionAndTypeIntersection(
   const typeSet = new Set(await getPokemonByType(type));
   return Array.from([...regionSet].filter((pokemon) => typeSet.has(pokemon)));
 }
+
+export async function getPokemonSprite(pokemonName: string) {
+  const res = await pokeApi.getPokemonByName(pokemonName);
+  console.log("sprite res:", res);
+  return res.sprites.front_default;
+}
+
+export function generateRandomPokemon(
+  pokemonArr: string[],
+): string | undefined {
+  if (pokemonArr.length === 0) return;
+  const randomIndex = Math.floor(Math.random() * pokemonArr.length);
+  return pokemonArr[randomIndex];
+}
