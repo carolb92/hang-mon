@@ -11,7 +11,6 @@ import { useFilteredPokemon } from "@/hooks/useFilteredPokemon";
 export default function GuessThisMon() {
   const [randomMon, setRandomMon] = useState<string>("");
   const [placeholder, setPlaceholder] = useState<JSX.Element[]>([]);
-  const [gameOver, setGameOver] = useState<boolean>(false);
   const [src, setSrc] = useState(pokeball3d);
 
   function generatePlaceholder(pokemonName: string) {
@@ -27,12 +26,14 @@ export default function GuessThisMon() {
   }
 
   const {
-    guessesRemaining,
+    gameOver,
+    setGameOver,
     setGuessesRemaining,
     setGuessedLetter,
     setGuessedLetters,
     region,
     type,
+    setGameWon,
   } = useGuessContext();
 
   // runs whenever the region or type filter changes
@@ -48,29 +49,22 @@ export default function GuessThisMon() {
       console.log("randomMon:", randomPokemon);
       setRandomMon(randomPokemon);
       setPlaceholder(generatePlaceholder(randomPokemon));
-    } else console.error("error generating random Pokémon");
+    }
+    // else console.error("error generating random Pokémon");
     if (error) {
       console.error("Error fetching filtered Pokémon:", error);
     }
   }, [filteredPokemon, error, setRandomMon]);
-
-  useEffect(() => {
-    console.log("guessesRemaining:", guessesRemaining);
-    if (guessesRemaining === 0) {
-      setGameOver(true);
-      console.log("gameOver:", gameOver);
-    }
-  }, [guessesRemaining, gameOver]);
 
   function handlePlayAgainClick() {
     setGuessedLetters([]);
     setGuessedLetter("");
     setGuessesRemaining(7);
     setGameOver(false);
+    setGameWon(false);
     setSrc(pokeball3d);
     const randomPokemon = generateRandomPokemon(filteredPokemon);
     if (randomPokemon) {
-      console.log("randomMon:", randomPokemon);
       setRandomMon(randomPokemon);
       setPlaceholder(generatePlaceholder(randomPokemon));
     } else console.error("error generating random Pokémon");

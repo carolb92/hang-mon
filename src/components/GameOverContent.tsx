@@ -12,7 +12,8 @@ export default function GameOverContent({
   return (
     <div className="mt-8 flex flex-col items-center gap-y-4">
       <span className="text-semibold text-xl">
-        No more guesses! The Pokémon was {randomMon}
+        No more guesses! The Pokémon was{" "}
+        <span className="capitalize">{randomMon}.</span>
       </span>
       <div className="relative h-0 w-full pb-[74%]">
         <iframe

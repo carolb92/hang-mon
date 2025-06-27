@@ -13,6 +13,10 @@ type GuessContextType = {
   setRegion: React.Dispatch<React.SetStateAction<string>>;
   type: string;
   setType: React.Dispatch<React.SetStateAction<string>>;
+  gameOver: boolean;
+  setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
+  gameWon: boolean;
+  setGameWon: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const GuessContext = createContext<GuessContextType | null>(null);
@@ -27,6 +31,8 @@ export function GuessContextProvider({
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [region, setRegion] = useURLState("region", "all" as RegionString);
   const [type, setType] = useURLState("type", "all" as TypeString);
+  const [gameOver, setGameOver] = useState(false);
+  const [gameWon, setGameWon] = useState<boolean>(false);
 
   const value = {
     guessedLetter,
@@ -39,6 +45,10 @@ export function GuessContextProvider({
     setRegion,
     type,
     setType,
+    gameOver,
+    setGameOver,
+    gameWon,
+    setGameWon,
   };
 
   return (
