@@ -91,7 +91,7 @@ export default function GamePlayContent({
   return (
     <div className="flex w-full flex-col items-center justify-center gap-x-24">
       <div className="flex flex-col items-center justify-center gap-y-2">
-        <div className="mt-6 flex flex-col gap-y-4 md:mt-14">
+        <div className="mt-2 flex flex-col gap-y-2 md:mt-4 md:gap-y-4">
           {!gameWon ? (
             <GuessInputForm
               onGuess={processGuess}
@@ -101,7 +101,7 @@ export default function GamePlayContent({
               <PokeImage src={src} />
             </GuessInputForm>
           ) : (
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex h-[400px] flex-col items-center justify-evenly">
               <span className="font-display rounded-lg border-2 border-blue-900 bg-yellow-400 px-2 py-1 text-2xl text-blue-700">
                 <p className="translate-y-[20%]">
                   Nice! You caught{" "}

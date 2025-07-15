@@ -15,7 +15,7 @@ export default function StyledButton({
   return (
     <Button
       type={type}
-      className="group mb-14 bg-yellow-300 py-5 hover:bg-blue-700"
+      className="group mb-2 bg-yellow-300 py-4 hover:bg-blue-700 md:mb-4 md:py-5"
       onClick={handleClick}
       disabled={disabled ?? false}
     >
