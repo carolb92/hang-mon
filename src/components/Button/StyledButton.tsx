@@ -2,21 +2,26 @@ import { Button } from "@/components/ui/button";
 
 type StyledButtonProps = {
   btnText: string;
-  handleClick: () => void;
+  handleClick?: () => void;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 };
 export default function StyledButton({
   btnText,
   handleClick,
   disabled,
+  type = "button",
 }: StyledButtonProps) {
   return (
     <Button
-      className="text-bold mb-14 bg-yellow-400 py-5 text-lg uppercase text-blue-950 hover:text-yellow-500"
+      type={type}
+      className="group mb-14 bg-yellow-300 py-5 hover:bg-blue-700"
       onClick={handleClick}
       disabled={disabled ?? false}
     >
-      {btnText}
+      <span className="font-display translate-y-[20%] text-lg uppercase text-blue-800 group-hover:text-yellow-300 group-hover:underline">
+        {btnText}
+      </span>
     </Button>
   );
 }

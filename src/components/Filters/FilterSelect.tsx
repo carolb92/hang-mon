@@ -5,44 +5,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useGuessContext } from "@/context/useGuessContext";
+import { RegionString, TypeString } from "@/lib/api/types";
 
 type FilterProps = {
   optionsArr: string[];
   menuTitle: string;
-  setRegionFilter: (value: string) => void;
-  setTypeFilter: (value: string) => void;
-  // regionFilter: { current: string };
-  // typeFilter: { current: string };
 };
 
-export default function FilterSelect({
-  optionsArr,
-  menuTitle,
-  setRegionFilter,
-  setTypeFilter,
-  // regionFilter,
-  // typeFilter,
-}: FilterProps) {
-  // const [regionFilter, setRegionFilter] = useState("all");
-  // const [typeFilter, setTypeFilter] = useState("all");
+export default function FilterSelect({ optionsArr, menuTitle }: FilterProps) {
+  const { setRegion, setType, guessesRemaining } = useGuessContext();
+  const isGuessInProgress = guessesRemaining < 7;
 
   function handleSelect(value: string) {
     if (menuTitle === "Region") {
-      setRegionFilter(value);
-      // regionFilter.current = value;
+      setRegion(value.toLowerCase() as RegionString);
     } else {
-      setTypeFilter(value);
-      // typeFilter.current = value;
+      setType(value.toLowerCase() as TypeString);
     }
   }
 
   return (
     <div className="rounded-lg border-2 border-blue-900 bg-yellow-100 p-1 font-semibold text-blue-900">
-      <Select onValueChange={handleSelect}>
-        <SelectTrigger className="w-[100px]">
+      <Select onValueChange={handleSelect} disabled={isGuessInProgress}>
+        <SelectTrigger className="font-utility w-[100px]">
           <SelectValue placeholder={menuTitle} />
         </SelectTrigger>
-        <SelectContent className="bg-yellow-100 text-blue-900">
+        <SelectContent className="font-utility bg-yellow-100 text-blue-900">
           {optionsArr.map((option) => {
             return (
               <SelectItem key={option} value={option}>

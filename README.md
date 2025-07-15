@@ -1,52 +1,36 @@
-# React + TypeScript + Vite
+# Hang 'Mon
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Pokemon guessing game built with React, TypeScript, and Vite. Guess the randomly generated Pokemon before your 7 attempts run out, otherwise you'll make Pikachu super sad.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Pokemon Guessing Game**: Guess letters to reveal Pokemon names
+- **Filtering Options**: Filter Pokemon by region (Kanto, Johto, etc.) or type (Fire, Water, etc.)
+- **Visual Feedback**: See incorrect guesses and remaining attempts
+- **Responsive Design**: Responsive UI across all device widths
+- **Pokemon Images**: Display Pokemon sprites when successfully guessed
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Pokemon Data**: [PokeAPI](https://pokeapi.co/) RESTful API + [pokenode-ts](https://github.com/Gabb-c/pokenode-ts) library for type safety and auto-caching (gotta cache 'em all!)
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+```bash
+# Install dependencies
+npm install
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+# Start development server
+npm run dev
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
+# Build for production
+npm run build
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
+# Preview production build
+npm run preview
 ```
 
 ### Attributions

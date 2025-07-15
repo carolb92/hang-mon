@@ -3,9 +3,13 @@ export default {
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      display: ['"Lakki Reddy"'],
+      utility: ["Montserrat", "sans-serif"],
+    },
     extend: {
       backgroundImage: {
-        blueSky: "url('./src/assets/blue-sky-background.jpg')",
+        blueSky: "url('/src/assets/blue-sky-background.jpg')",
       },
       borderRadius: {
         lg: "var(--radius)",

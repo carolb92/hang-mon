@@ -10,9 +10,10 @@ export default function GameOverContent({
   playAgain,
 }: GameOverContentProps) {
   return (
-    <div className="mt-8 flex flex-col items-center gap-y-4">
-      <span className="text-semibold text-xl">
-        No more guesses! The Pokémon was {randomMon}
+    <div className="mt-8 flex flex-col items-center gap-y-3">
+      <span className="font-utility text-xl font-semibold text-blue-900">
+        No more guesses! The Pokémon was{" "}
+        <span className="capitalize">{randomMon}.</span>
       </span>
       <div className="relative h-0 w-full pb-[74%]">
         <iframe
@@ -24,10 +25,7 @@ export default function GameOverContent({
           allowFullScreen
         ></iframe>
       </div>
-      {/* <p><a href="https://giphy.com/gifs/12BQY6Nj4ZDAFG">via GIPHY</a></p> */}
-      {/* style="width:100%;height:0;padding-bottom:74%;position:relative;" */}
       <span>
-        {/* className="w-1/2" */}
         <PlayAgainButton handleClick={playAgain} />
       </span>
     </div>
