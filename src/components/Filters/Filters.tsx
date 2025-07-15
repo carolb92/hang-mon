@@ -35,7 +35,7 @@ export default function Filters() {
     "Fairy",
   ];
   return (
-    <div className="flex w-[360px] flex-col items-center justify-between gap-y-2 md:flex-row">
+    <div className="flex flex-col items-center justify-between gap-y-2 md:flex-row md:justify-center md:gap-x-4">
       <span className="font-utility text-xl font-semibold text-blue-900">
         Filter by:
       </span>

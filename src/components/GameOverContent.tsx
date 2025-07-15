@@ -11,7 +11,7 @@ export default function GameOverContent({
 }: GameOverContentProps) {
   return (
     <div className="mt-8 flex flex-col items-center gap-y-3">
-      <span className="font-utility text-xl font-semibold text-blue-900">
+      <span className="font-utility mx-2 text-center text-xl font-semibold text-blue-900">
         No more guesses! The Pokémon was{" "}
         <span className="capitalize">{randomMon}.</span>
       </span>

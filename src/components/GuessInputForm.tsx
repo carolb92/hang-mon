@@ -89,15 +89,15 @@ export default function GuessInputForm({
         {/* PokeImage component goes here */}
         <span>{children}</span>
       </div>
-      <div className="flex flex-col items-center gap-y-4">
-        <span className="font-utility">{placeholder}</span>
+      <div className="flex flex-col items-center gap-y-2 md:gap-y-4">
+        <span className="font-utility font-semibold">{placeholder}</span>
         <>
-          <span className="text-semibold font-utility text-xl">
+          <span className="font-utility text-xl font-medium">
             Guess a letter:
           </span>
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center gap-y-4"
+            className="flex flex-col items-center gap-y-2 md:gap-y-4"
           >
             <Input
               type="text"
