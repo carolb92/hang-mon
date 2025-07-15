@@ -1,6 +1,6 @@
 # Hang 'Mon
 
-A Pokemon-themed guessing game built with React, TypeScript, and Vite. Guess the Pokemon before your 7 attempts run out, otherwise you'll make Pikachu super sad.
+A Pokemon guessing game built with React, TypeScript, and Vite. Guess the randomly generated Pokemon before your 7 attempts run out, otherwise you'll make Pikachu super sad.
 
 ## Features
 
@@ -10,7 +10,7 @@ A Pokemon-themed guessing game built with React, TypeScript, and Vite. Guess the
 - **Responsive Design**: Responsive UI across all device widths
 - **Pokemon Images**: Display Pokemon sprites when successfully guessed
 
-## Technology Stack
+## Tech Stack
 
 - **Frontend**: React 18 with TypeScript
 - **Build Tool**: Vite
