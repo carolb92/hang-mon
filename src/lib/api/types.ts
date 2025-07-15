@@ -29,5 +29,4 @@ export type TypeString =
   | "dragon"
   | "dark"
   | "fairy"
-  | "stellar"
   | "all";

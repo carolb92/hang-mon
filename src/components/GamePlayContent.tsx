@@ -82,7 +82,8 @@ export default function GamePlayContent({
 
   const handleGameWon = useCallback(async () => {
     const spriteUrl = await fetchSprite(randomMon);
-    setSrc(spriteUrl!);
+    if (spriteUrl) setSrc(spriteUrl);
+    else console.error("Failed to fetch sprite for", randomMon);
     setGameWon(true);
     correctGuessesArray.current = [];
   }, [randomMon, setSrc, setGameWon]);
