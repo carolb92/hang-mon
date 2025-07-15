@@ -90,7 +90,7 @@ export default function GamePlayContent({
   return (
     <div className="flex w-full flex-col items-center justify-center gap-x-24">
       <div className="flex flex-col items-center justify-center gap-y-2">
-        <div className="mt-6 flex flex-col gap-y-4">
+        <div className="mt-6 flex flex-col gap-y-4 md:mt-14">
           {!gameWon ? (
             <GuessInputForm
               onGuess={processGuess}

@@ -5,7 +5,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import StyledButton from "../Button/StyledButton";
 import { useGuessContext } from "@/context/useGuessContext";
 import { RegionString, TypeString } from "@/lib/api/types";
 
@@ -15,8 +14,7 @@ type FilterProps = {
 };
 
 export default function FilterSelect({ optionsArr, menuTitle }: FilterProps) {
-  const { setRegion, setType, guessesRemaining } = useGuessContext(); //region, type
-  // const defaultValue = menuTitle === "Region" ? region : type;
+  const { setRegion, setType, guessesRemaining } = useGuessContext();
   const isGuessInProgress = guessesRemaining < 7;
 
   function handleSelect(value: string) {

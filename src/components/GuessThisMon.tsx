@@ -50,7 +50,6 @@ export default function GuessThisMon() {
       setRandomMon(randomPokemon);
       setPlaceholder(generatePlaceholder(randomPokemon));
     }
-    // else console.error("error generating random Pokémon");
     if (error) {
       console.error("Error fetching filtered Pokémon:", error);
     }

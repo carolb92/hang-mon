@@ -77,7 +77,10 @@ export async function getAllPokemon() {
 // returns an array of pokemon names from a given region
 export async function getPokemonByRegion(regionName: RegionString) {
   const regionId = regionStringToGenerationId(regionName);
-  if (typeof regionId !== "number") return; //TODO: maybe log a message here
+  if (typeof regionId !== "number") {
+    console.error(`Region ${regionName} not found.`);
+    return;
+  }
   const res = await gameApi.getGenerationById(regionId);
   return res.pokemon_species.map((species) => species.name);
 }

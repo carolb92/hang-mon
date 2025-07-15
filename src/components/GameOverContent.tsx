@@ -25,8 +25,6 @@ export default function GameOverContent({
           allowFullScreen
         ></iframe>
       </div>
-      {/* <p><a href="https://giphy.com/gifs/12BQY6Nj4ZDAFG">via GIPHY</a></p> */}
-      {/* style="width:100%;height:0;padding-bottom:74%;position:relative;" */}
       <span>
         <PlayAgainButton handleClick={playAgain} />
       </span>
