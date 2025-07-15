@@ -102,7 +102,6 @@ export async function findRegionAndTypeIntersection(
 
 export async function getPokemonSprite(pokemonName: string) {
   const res = await pokeApi.getPokemonByName(pokemonName);
-  console.log("sprite res:", res);
   return res.sprites.front_default;
 }
 

@@ -9,7 +9,7 @@ export default {
     },
     extend: {
       backgroundImage: {
-        blueSky: "url('./src/assets/blue-sky-background.jpg')",
+        blueSky: "url('/src/assets/blue-sky-background.jpg')",
       },
       borderRadius: {
         lg: "var(--radius)",
