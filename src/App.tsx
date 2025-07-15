@@ -7,9 +7,11 @@ import { GuessContextProvider } from "./context/GuessContext";
 function App() {
   return (
     // TODO: different background for mobile?
-    <div className="flex h-screen min-w-full flex-col items-center bg-blueSky bg-cover bg-top md:justify-center md:gap-y-20 lg:gap-y-10 lg:bg-center">
+    <div className="flex h-screen max-h-full min-w-full flex-col items-center justify-evenly bg-blueSky bg-cover bg-top md:justify-center md:gap-y-20 lg:gap-y-2 lg:bg-center">
+      {/*  lg:justify-evenly */}
       <Logo />
-      <div className="flex flex-col">
+      <div className="flex flex-col lg:justify-evenly">
+        {/* lg:h-[50%] xl:h-auto */}
         <GuessContextProvider>
           <Filters />
           <GuessThisMon />

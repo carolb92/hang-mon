@@ -101,9 +101,11 @@ export default function GamePlayContent({
             </GuessInputForm>
           ) : (
             <div className="flex flex-col items-center justify-center">
-              <span>
-                Nice! You caught <span className="capitalize">{randomMon}</span>
-                !
+              <span className="font-display rounded-lg border-2 border-blue-900 bg-yellow-400 px-2 py-1 text-2xl text-blue-700">
+                <p className="translate-y-[20%]">
+                  Nice! You caught{" "}
+                  <span className="capitalize">{randomMon}</span>!
+                </p>
               </span>
               <PokeImage src={src} />
               <PlayAgainButton handleClick={playAgain} />

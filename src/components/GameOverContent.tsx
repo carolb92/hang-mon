@@ -10,8 +10,8 @@ export default function GameOverContent({
   playAgain,
 }: GameOverContentProps) {
   return (
-    <div className="mt-8 flex flex-col items-center gap-y-4">
-      <span className="text-semibold text-xl">
+    <div className="mt-8 flex flex-col items-center gap-y-3">
+      <span className="font-utility text-xl font-semibold text-blue-900">
         No more guesses! The Pokémon was{" "}
         <span className="capitalize">{randomMon}.</span>
       </span>
@@ -28,7 +28,6 @@ export default function GameOverContent({
       {/* <p><a href="https://giphy.com/gifs/12BQY6Nj4ZDAFG">via GIPHY</a></p> */}
       {/* style="width:100%;height:0;padding-bottom:74%;position:relative;" */}
       <span>
-        {/* className="w-1/2" */}
         <PlayAgainButton handleClick={playAgain} />
       </span>
     </div>

@@ -72,8 +72,12 @@ export default function GuessInputForm({
   return (
     <div>
       <div className="flex flex-col items-center">
-        <span>Guesses remaining: {guessesRemaining}</span>
-        <span className="flex gap-x-2">
+        <span className="rounded-lg border-2 border-blue-900 bg-yellow-400 px-4 py-1 text-2xl text-blue-700">
+          <p className="font-display translate-y-[20%]">
+            Guesses remaining: {guessesRemaining}
+          </p>
+        </span>
+        <span className="font-display mt-2 flex min-h-[1.75rem] gap-x-2 text-lg">
           {guessedLetters.map((letter) => {
             return (
               <span key={letter} className="text-red-600">
@@ -86,9 +90,11 @@ export default function GuessInputForm({
         <span>{children}</span>
       </div>
       <div className="flex flex-col items-center gap-y-4">
-        <span>{placeholder}</span>
+        <span className="font-utility">{placeholder}</span>
         <>
-          <span className="text-semibold text-xl">Guess a letter:</span>
+          <span className="text-semibold font-utility text-xl">
+            Guess a letter:
+          </span>
           <form
             onSubmit={handleSubmit}
             className="flex flex-col items-center gap-y-4"
@@ -106,7 +112,7 @@ export default function GuessInputForm({
               disabled={gameWon}
             />
             {inputErrorMsg && (
-              <span className="text-red-600">{inputErrorMsg}</span>
+              <span className="font-utility text-red-600">{inputErrorMsg}</span>
             )}
             <StyledButton
               btnText="Guess"

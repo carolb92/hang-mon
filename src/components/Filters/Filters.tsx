@@ -36,7 +36,9 @@ export default function Filters() {
   ];
   return (
     <div className="flex w-[360px] flex-col items-center justify-between gap-y-2 md:flex-row">
-      <span className="text-xl font-semibold text-blue-950">Filter by:</span>
+      <span className="font-utility text-xl font-semibold text-blue-900">
+        Filter by:
+      </span>
       <div className="flex w-full flex-row justify-center gap-x-4 md:w-auto">
         <FilterSelect optionsArr={regionsArr} menuTitle="Region" />
         <FilterSelect optionsArr={typesArr} menuTitle="Type" />
