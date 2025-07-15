@@ -15,8 +15,9 @@ type FilterProps = {
 };
 
 export default function FilterSelect({ optionsArr, menuTitle }: FilterProps) {
-  const { setRegion, setType } = useGuessContext(); //region, type
+  const { setRegion, setType, guessesRemaining } = useGuessContext(); //region, type
   // const defaultValue = menuTitle === "Region" ? region : type;
+  const isGuessInProgress = guessesRemaining < 7;
 
   function handleSelect(value: string) {
     if (menuTitle === "Region") {
@@ -28,11 +29,11 @@ export default function FilterSelect({ optionsArr, menuTitle }: FilterProps) {
 
   return (
     <div className="rounded-lg border-2 border-blue-900 bg-yellow-100 p-1 font-semibold text-blue-900">
-      <Select onValueChange={handleSelect}>
-        <SelectTrigger className="w-[100px]">
+      <Select onValueChange={handleSelect} disabled={isGuessInProgress}>
+        <SelectTrigger className="font-utility w-[100px]">
           <SelectValue placeholder={menuTitle} />
         </SelectTrigger>
-        <SelectContent className="bg-yellow-100 text-blue-900">
+        <SelectContent className="font-utility bg-yellow-100 text-blue-900">
           {optionsArr.map((option) => {
             return (
               <SelectItem key={option} value={option}>
@@ -42,7 +43,6 @@ export default function FilterSelect({ optionsArr, menuTitle }: FilterProps) {
           })}
         </SelectContent>
       </Select>
-      {/* <StyledButton btnText="GO!" ></StyledButton> */}
     </div>
   );
 }
