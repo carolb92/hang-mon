@@ -5,7 +5,7 @@ A Pokemon guessing game built with React, TypeScript, and Vite. Guess the random
 ## Features
 
 - **Pokemon Guessing Game**: Guess letters to reveal Pokemon names
-- **Filtering Options**: Filter Pokemon by region (Kanto, Johto, etc.) or type (Fire, Water, etc.)
+- **Filtering Options with URL State Management**: Filter Pokemon by region (Kanto, Johto, etc.) or type (Fire, Water, etc.)
 - **Visual Feedback**: See incorrect guesses and remaining attempts
 - **Responsive Design**: Responsive UI across all device widths
 - **Pokemon Images**: Display Pokemon sprites when successfully guessed
